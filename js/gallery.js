@@ -69,10 +69,10 @@ const gallery = document.querySelector(".gallery");
 const galleryMarkup = images
   .map(
     ({ preview, original, description }) => `
-      <li class="gallery-item">
-        <a class="gallery-link" href="${original}">
+      <li class="gallery__item">
+        <a class="gallery__link" href="${original}">
           <img
-            class="gallery-image"
+            class="gallery__image"
             src="${preview}"
             data-source="${original}"
             alt="${description}"
@@ -90,7 +90,7 @@ gallery.addEventListener("click", onGalleryClick);
 function onGalleryClick(event) {
   event.preventDefault();
 
-  const isImage = event.target.classList.contains("gallery-image");
+  const isImage = event.target.classList.contains("gallery__image");
   if (!isImage) return;
 
   const largeImageURL = event.target.dataset.source;
@@ -101,10 +101,12 @@ function onGalleryClick(event) {
 
   instance.show();
 
-  document.addEventListener("keydown", function onEscPress(e) {
+  document.addEventListener("keydown", onEscPress);
+
+  function onEscPress(e) {
     if (e.key === "Escape") {
       instance.close();
       document.removeEventListener("keydown", onEscPress);
     }
-  });
+  }
 }
